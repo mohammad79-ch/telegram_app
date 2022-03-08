@@ -112,6 +112,7 @@
       <path value="$PROJECT_DIR$/laravel/vendor/symfony/http-kernel" />
       <path value="$PROJECT_DIR$/laravel/vendor/symfony/mailer" />
       <path value="$PROJECT_DIR$/laravel/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/laravel/vendor/livewire/livewire" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
