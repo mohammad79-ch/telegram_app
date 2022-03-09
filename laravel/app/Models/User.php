@@ -27,6 +27,17 @@ class User extends Authenticatable
         'bio'
     ];
 
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class,"message_user")->withTimestamps();
+    }
+
+    public function texts()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
