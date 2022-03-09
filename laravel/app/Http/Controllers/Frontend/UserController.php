@@ -107,4 +107,9 @@ class UserController extends Controller
         return TRUE;
     }
 
+    public function messages()
+    {
+        dd("here");
+    }
+
 }

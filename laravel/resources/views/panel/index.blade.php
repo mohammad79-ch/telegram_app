@@ -8,6 +8,7 @@
                     <div class="d-flex">
                         <div class="card-header">{{ __('Panel') }}</div>
                         <div class="card-header"><a href="{{route("user.edit")}}">{{ __('Edit') }}</a></div>
+                        <div class="card-header"><a href="{{route("user.messages")}}">{{ __('Messages') }}</a></div>
                     </div>
                     <div class="card-body">
                         <div class="user-item d-flex">

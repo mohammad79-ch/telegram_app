@@ -23,5 +23,8 @@ Route::get("/user",[UserController::class,"index"])->middleware("auth")->name("u
 Route::get("/user/edit",[UserController::class,"edit"])->middleware("auth")->name("user.edit");
 Route::post("/user/edit",[UserController::class,"update"])->middleware("auth")->name("user.edit.update");
 Route::get("/user/@{username}",[ProfileController::class,"profile"])->name("user.profile");
+Route::get("/user/messages",[UserController::class,"messages"])->name("user.messages");
+
+Route::post('user/send/message/{user}',[ProfileController::class,"send"])->name("user.send.message");
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
