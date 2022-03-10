@@ -15,13 +15,8 @@ class ProfileController extends Controller
         $user = User::where("username",$username)->first();
         if (is_null($user)) return to_route("index");
 
-        $messages = $user->texts;
-        $messagesUser = $user->messages;
-        $finals = collect($messages)->concat($messagesUser)->sortBy([
-            "created_at" , "asc"
-        ]);
 
-        return view("profile",compact('user','finals'));
+        return view("profile",compact('user'));
     }
 
     public function send(Request $request,User $user)

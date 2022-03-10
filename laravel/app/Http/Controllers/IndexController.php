@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Trait\Searchable;
 use Illuminate\Http\Request;
 
