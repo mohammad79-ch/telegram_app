@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -109,7 +110,43 @@ class UserController extends Controller
 
     public function messages()
     {
-        dd("here");
+        $user = auth()->user();
+        $messages = $user->texts;
+        $messagesUser = $user->messages;
+
+        $messages = collect($messages)->concat($messagesUser)->sortBy([
+            "created_at" , "asc"
+        ])->unique("user_id");
+
+        return \view("panel.message",compact('messages'));
+    }
+
+    public function singleMessage(Request $request,User $user)
+    {
+        $messages = $user->texts;
+        $messages =  $messages->filter(function ($message){
+           return $message->users()->where("user_id",Auth::id())->get();
+        });
+
+        $currentUsertexts = \auth()->user()->texts;
+
+        if (!is_null($currentUsertexts)){
+            $currentUserMessages =  $currentUsertexts->filter(function ($message) use($user){
+                return $message->users()->where("user_id",$user->id)->get();
+            });
+        }else{
+            $currentUserMessages = [];
+        }
+
+        $messages = collect($messages)->concat($currentUserMessages)->sortBy([
+            "created_at" , "asc"
+        ]);
+
+
+
+
+        return \view("panel.message",compact("messages"));
+
     }
 
 }
