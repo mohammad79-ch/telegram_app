@@ -119,6 +119,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/mailer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/livewire/livewire" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/jantinnerezo/livewire-alert" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
