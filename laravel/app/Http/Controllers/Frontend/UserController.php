@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use App\Models\User;
+use App\Service\ImageService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,6 +20,13 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    public ImageService $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -59,7 +68,7 @@ class UserController extends Controller
            "image" => "sometimes|image"
         ]);
 
-        $imageRandomName = $this->imageMaker($request);
+        $imageRandomName = $this->imageService->make($request,"image");
 
         if (!is_null($imageRandomName)){
             $validData["image"] = $imageRandomName;
@@ -83,35 +92,10 @@ class UserController extends Controller
         //
     }
 
-    private function imageMaker(Request $request)
-    {
-        if (!$request->has("image")) return null;
-
-       $this->deleteIfImageAlreadyExists($request);
-
-        $image = $request->file("image");
-
-        $randomName = Str::slug(Str::random("7")). '.'.$image->extension();
-
-        $image->move(public_path("assets/users"),$randomName);
-
-        return $randomName;
-    }
-
-    private function deleteIfImageAlreadyExists()
-    {
-        $user = auth()->user();
-        if (File::exists(public_path("assets/users/".$user->image))){
-            File::delete(public_path("assets/users/".$user->image));
-        }
-
-        return TRUE;
-    }
-
     public function messages()
     {
         $user = auth()->user();
-        $messages = $user->texts;
+        $messages = $user->texts()->where("user_id","!=",Auth::id())->get();
         $messagesUser = $user->messages;
 
         $messages = collect($messages)->concat($messagesUser)->sortBy([
@@ -124,29 +108,38 @@ class UserController extends Controller
     public function singleMessage(Request $request,User $user)
     {
         $messages = $user->texts;
-        $messages =  $messages->filter(function ($message){
-           return $message->users()->where("user_id",Auth::id())->get();
-        });
 
-        $currentUsertexts = \auth()->user()->texts;
+       $messages = \auth()->user()->messages()->whereIn("message_id",
+           $messages->pluck("id")->toArray())
+           ->get();
 
-        if (!is_null($currentUsertexts)){
-            $currentUserMessages =  $currentUsertexts->filter(function ($message) use($user){
-                return $message->users()->where("user_id",$user->id)->get();
-            });
-        }else{
-            $currentUserMessages = [];
-        }
+       $ownUserTexts =  \auth()->user()->texts;
+        $ownMessages = $user->messages()->whereIn("message_id",
+           $ownUserTexts->pluck("id")->toArray())->get();
 
-        $messages = collect($messages)->concat($currentUserMessages)->sortBy([
+
+        $messages = collect($messages)->concat($ownMessages)->sortBy([
             "created_at" , "asc"
+        ])->filter()->flatten()->all();
+
+        return \view("panel.single_message",compact("messages","user"));
+
+    }
+
+    public function replay(Request $request,User $user)
+    {
+        $validData = $request->validate([
+            "text" => "required",
         ]);
 
+        $message = Message::create([
+            "text" => $validData["text"],
+            "user_id" => Auth::id()
+        ]);
 
+        $message->users()->attach($user->id);
 
-
-        return \view("panel.message",compact("messages"));
-
+        return back();
     }
 
 }

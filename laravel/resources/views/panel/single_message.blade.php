@@ -66,13 +66,25 @@
                                     <div class="messages">
                                         <ul style="list-style: none;text-align: right;padding: 10px">
                                             @foreach($messages as $message)
+                                                @php
+                                                $user = \App\Models\User::where("id",$message->user_id)->first();
+                                                @endphp
                                             <li>
-                                                <img src="{{asset('assets/users/'.$message->user->image)}}" width="40" class="rounded" alt="">
-                                                <a href="{{route('user.show.single.message',['user'=>$message->user->id])}}" style="font-weight: bold">{{$message->text}} -- {{$message->user->name}}  </a>
+                                                <img src="{{asset('assets/users/'.$user?->image)}}" width="40" class="rounded" alt="">
+                                                <a  style="font-weight: bold">{{$message->text}} -- {{$user?->name}}  </a>
                                             </li>
 
                                             @endforeach
                                         </ul>
+                                    </div>
+                                    <div class="form_sender">
+                                        <form action="{{route('user.replay.message',['user'=>$user->id])}}" method="post">
+                                            @csrf
+                                            <div class="form-group messages_sender_user_box">
+                                                <input type="text"  id="messages_sender_user" name="text" placeholder="Type something ...">
+                                                <button type="submit" class="btn btn-warning btn-sm">Send</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             @endauth
