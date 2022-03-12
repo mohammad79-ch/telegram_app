@@ -27,4 +27,7 @@ Route::get("/user/messages",[UserController::class,"messages"])->name("user.mess
 Route::get("/user/show/single/message/{user}",[UserController::class,"singleMessage"])->name("user.show.single.message");
 Route::post('user/send/message/{user}',[ProfileController::class,"send"])->name("user.send.message");
 
+Route::post('user/replay/message/{user}',[UserController::class,"replay"])->name("user.replay.message");
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

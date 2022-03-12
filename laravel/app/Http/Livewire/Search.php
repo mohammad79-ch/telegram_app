@@ -13,6 +13,10 @@ class Search extends Component
 
     public $search;
 
+    public function mount()
+    {
+    }
+
     public function searchFor()
     {
         if (!empty($this->search)){
