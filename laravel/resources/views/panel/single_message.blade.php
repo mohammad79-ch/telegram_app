@@ -3,8 +3,8 @@
 @section('content')
     <style>
         .box_messages{
-            width: 50%;
-            height: 400px;
+            width: 60%;
+            height: auto;
             border-radius: 10px;
             margin: 0 auto;
             background: #fff;
@@ -62,31 +62,7 @@
                             <br>
                             <br>
                             @auth
-                                <div class="box_messages">
-                                    <div class="messages">
-                                        <ul style="list-style: none;text-align: right;padding: 10px">
-                                            @foreach($messages as $message)
-                                                @php
-                                                $user = \App\Models\User::where("id",$message->user_id)->first();
-                                                @endphp
-                                            <li>
-                                                <img src="{{asset('assets/users/'.$user?->image)}}" width="40" class="rounded" alt="">
-                                                <a  style="font-weight: bold">{{$message->text}} -- {{$user?->name}}  </a>
-                                            </li>
-
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    <div class="form_sender">
-                                        <form action="{{route('user.replay.message',['user'=>$user->id])}}" method="post">
-                                            @csrf
-                                            <div class="form-group messages_sender_user_box">
-                                                <input type="text"  id="messages_sender_user" name="text" placeholder="Type something ...">
-                                                <button type="submit" class="btn btn-warning btn-sm">Send</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                              @livewire("message",["user"=>$user])
                             @endauth
                         </div>
                     </div>
