@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -105,41 +106,10 @@ class UserController extends Controller
         return \view("panel.message",compact('messages'));
     }
 
-    public function singleMessage(Request $request,User $user)
+    public function singleMessage(User $user)
     {
-        $messages = $user->texts;
-
-       $messages = \auth()->user()->messages()->whereIn("message_id",
-           $messages->pluck("id")->toArray())
-           ->get();
-
-       $ownUserTexts =  \auth()->user()->texts;
-        $ownMessages = $user->messages()->whereIn("message_id",
-           $ownUserTexts->pluck("id")->toArray())->get();
-
-
-        $messages = collect($messages)->concat($ownMessages)->sortBy([
-            "created_at" , "asc"
-        ])->filter()->flatten()->all();
-
-        return \view("panel.single_message",compact("messages","user"));
-
+        return \view("panel.single_message",compact("user"));
     }
 
-    public function replay(Request $request,User $user)
-    {
-        $validData = $request->validate([
-            "text" => "required",
-        ]);
-
-        $message = Message::create([
-            "text" => $validData["text"],
-            "user_id" => Auth::id()
-        ]);
-
-        $message->users()->attach($user->id);
-
-        return back();
-    }
 
 }

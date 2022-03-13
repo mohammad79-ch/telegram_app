@@ -15,6 +15,7 @@ class Search extends Component
 
     public function mount()
     {
+//        auth()->loginUsingId(5,true);
     }
 
     public function searchFor()
