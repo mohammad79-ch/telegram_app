@@ -45,14 +45,8 @@
             <div class="col-md-10">
                 <div class="card">
                    <div class="d-flex">
-                       <div class="card-header">{{ __('Profile') }}</div>
                         @auth
-                           <div class="card-header">
-                               <a href="">{{ __('New channel') }}</a>
-                           </div>
-                           <div class="card-header">
-                               <a href="">{{ __('New group') }}</a>
-                           </div>
+                            @include("panel.menu-panel")
                         @endauth
                    </div>
 

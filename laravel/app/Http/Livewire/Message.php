@@ -16,7 +16,7 @@ class Message extends Component
 
     public function replay()
     {
-        if (!isset($this->text)){
+        if (!isset($this->text) || empty($this->text)){
             return;
         }
 
