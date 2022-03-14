@@ -1,6 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .groups_count {
+            font-weight: bold;
+            margin: 10px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background: #0a58ca;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+        .groups_count:hover{
+            color: #fff;
+        }
+    </style>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -11,70 +27,15 @@
                         @endauth
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('user.group.store') }}" enctype="multipart/form-data">
-                            @csrf
-
-                            <div class="row mb-3">
-                                <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
-
-                                <div class="col-md-6">
-                                    <input type="file" name="profile" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"   required autocomplete="email" autofocus>
+                    @foreach($groups as $group)
+                                <div class="groups d-flex">
+                                    <img src="{{asset('assets/groups/'.$group->profile)}}" width="40" alt="">
+                                    <a href="{{route('user.groups.show',['group'=>$group->id])}}" style="font-weight: bold;margin: 10px" >{{$group->name}}</a>
+                                    <a  class="groups_count">{{$group->users()->count()}}</a>
 
                                 </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="email" autofocus>
-
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="unique_id" class="col-md-4 col-form-label text-md-end">{{ __('ID') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="unique_id" type="text" class="form-control @error('unique_id') is-invalid @enderror" name="unique_id" required autocomplete="unique_id" autofocus>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="unique_id" class="col-md-4 col-form-label text-md-end">{{ __('Chat History') }}</label>
-
-                                <div class="col-md-6">
-                                    <select name="chat_histroy" id="" class="form-control">
-                                        <option value="visible">Visible</option>
-                                        <option value="hidden">Hidden</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="desc" class="col-md-4 col-form-label text-md-end">{{ __('desc') }}</label>
-
-                                <div class="col-md-6">
-                                    <textarea name="desc" class="form-control @error('desc') is-invalid @enderror"  id="desc" cols="30" rows="10"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Edit') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-
+                            <hr>
+                    @endforeach
                     </div>
                 </div>
             </div>

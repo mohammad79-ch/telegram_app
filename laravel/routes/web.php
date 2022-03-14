@@ -29,9 +29,45 @@ Route::get("/user/messages",[UserController::class,"messages"])->name("user.mess
 Route::get("/user/show/single/message/{user}",[UserController::class,"singleMessage"])->name("user.show.single.message");
 Route::post('user/send/message/{user}',[ProfileController::class,"send"])->name("user.send.message");
 Route::post('user/replay/message/{user}',[UserController::class,"replay"])->name("user.replay.message");
+Route::get("user/group/index",[GroupController::class,"index"])->name("user.group.index");
 Route::get("user/group/create",[GroupController::class,"create"])->name("user.group.create");
 Route::post("user/group/create",[GroupController::class,"store"])->name("user.group.store");
+Route::post("users/{user}/groups/{group}/join",[GroupController::class,"join"])->name("user.group.join");
+Route::get("/user/@{username}/groups",[UserController::class,"groups"])->name("user.guess.groups");
+Route::get("/user/groups/{group}/show",[GroupController::class,"showCurrentGroup"])->name("user.groups.show");
+
+
 Route::get("user/channel/create",[ChannelController::class,"create"])->name("user.channel.create");
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+// TODO the user can join in a group
+// TODO text , group_id , user_id
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO

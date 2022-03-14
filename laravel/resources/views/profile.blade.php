@@ -45,9 +45,9 @@
             <div class="col-md-10">
                 <div class="card">
                    <div class="d-flex">
-{{--                        @auth--}}
-{{--                            @include("panel.menu-panel")--}}
-{{--                        @endauth--}}
+                        @auth
+                            @include("panel.menu-panel")
+                        @endauth
                    </div>
 
                     <div class="card-body">
@@ -59,6 +59,9 @@
                                              <img src="{{asset('assets/users/'.$user->image)}}" class="rounded" width="70" alt="">
                                              <p style="margin: 20px;font-weight: bold">{{$user->name}} - {{$user->username}}</p>
                                          </div>
+                                            @auth
+                                                <a href="{{route('user.guess.groups',['username'=>$user->username])}}" style="font-weight: bold;margin-left: 10px"> My Groups</a>
+                                            @endauth
                                         </div>
                                     </a>
                                 </div>

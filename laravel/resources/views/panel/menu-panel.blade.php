@@ -6,6 +6,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('user') }}">Profile</a>
                 <a class="dropdown-item" href="{{ route('user.edit.update') }}">Edit</a>
             </div>
         </li>
@@ -29,7 +30,7 @@
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('user.group.create') }}">new Group</a>
-                <a class="dropdown-item" href="{{ route('user.group.create') }}">All Group</a>
+                <a class="dropdown-item" href="{{ route('user.group.index') }}">All Group</a>
             </div>
         </li>
 

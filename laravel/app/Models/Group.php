@@ -38,4 +38,8 @@ class Group extends Model
             set: fn ($value) => Str::slug($value),
         );
     }
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class,"group_message")->withTimestamps();
+    }
 }

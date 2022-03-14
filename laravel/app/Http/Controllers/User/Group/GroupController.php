@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Group;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\User;
 use App\Service\ImageService;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,20 @@ class GroupController extends Controller
 
         Group::create($validData);
 
-        return back()->with("success","گروه شما با موفقیت ساخته شد");
+        return to_route("user.group.index");
     }
+
+    public function join(User $user,Group $group)
+    {
+        $user->ownGroups()->attach($group->id);
+        return back();
+    }
+
+    public function showCurrentGroup(Group $group)
+    {
+        $messages = $group->messages;
+
+        return view("panel.groups.chat",compact("messages","group"));
+    }
+
 }
