@@ -6,10 +6,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="d-flex">
-                        <div class="card-header">{{ __('Panel') }}</div>
-                        <div class="card-header"><a href="{{route("user.edit.update")}}">{{ __('Edit') }}</a></div>
-                        <div class="card-header"><a href="{{route("user.messages")}}">{{ __('Messages') }}</a></div>
-
+                        @auth
+                        @include("panel.menu-panel")
+                        @endauth
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.edit') }}" enctype="multipart/form-data">

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Frontend\UserController;
+use App\Http\Controllers\User\Channel\ChannelController;
+use App\Http\Controllers\User\Group\GroupController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +28,10 @@ Route::get("/user/@{username}",[ProfileController::class,"profile"])->name("user
 Route::get("/user/messages",[UserController::class,"messages"])->name("user.messages");
 Route::get("/user/show/single/message/{user}",[UserController::class,"singleMessage"])->name("user.show.single.message");
 Route::post('user/send/message/{user}',[ProfileController::class,"send"])->name("user.send.message");
-
 Route::post('user/replay/message/{user}',[UserController::class,"replay"])->name("user.replay.message");
+Route::get("user/group/create",[GroupController::class,"create"])->name("user.group.create");
+Route::post("user/group/create",[GroupController::class,"store"])->name("user.group.store");
+Route::get("user/channel/create",[ChannelController::class,"create"])->name("user.channel.create");
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

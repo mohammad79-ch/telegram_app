@@ -7,17 +7,17 @@ use Illuminate\Support\Str;
 
 class ImageService
 {
-    public function Make($request,$name)
+    public function Make($request,$name,$directory = "users")
     {
         if (!$request->has($name)) return null;
 
         $this->deleteIfImageAlreadyExists($request);
 
-        $image = $request->file("image");
+        $image = $request->file($name);
 
         $randomName = Str::slug(Str::random("7")). '.'.$image->extension();
 
-        $image->move(public_path("assets/users"),$randomName);
+        $image->move(public_path("assets/$directory"),$randomName);
 
         return $randomName;
     }
