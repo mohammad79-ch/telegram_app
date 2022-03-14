@@ -45,9 +45,9 @@
             <div class="col-md-10">
                 <div class="card">
                    <div class="d-flex">
-                        @auth
-                            @include("panel.menu-panel")
-                        @endauth
+{{--                        @auth--}}
+{{--                            @include("panel.menu-panel")--}}
+{{--                        @endauth--}}
                    </div>
 
                     <div class="card-body">
