@@ -20,4 +20,9 @@ class Message extends Model
     {
      return $this->belongsToMany(User::class,"message_user")->withTimestamps();
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class,"group_message")->withTimestamps();
+    }
 }

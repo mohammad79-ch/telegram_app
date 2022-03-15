@@ -111,5 +111,14 @@ class UserController extends Controller
         return \view("panel.single_message",compact("user"));
     }
 
+    public function groups($username)
+    {
+        $user = User::whereUsername($username)->first();
+
+        $groups = $user->groups;
+
+        return \view("panel.groups.user_guess_groups",compact("groups"));
+    }
+
 
 }

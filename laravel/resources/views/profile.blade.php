@@ -45,9 +45,9 @@
             <div class="col-md-10">
                 <div class="card">
                    <div class="d-flex">
-{{--                        @auth--}}
-{{--                            @include("panel.menu-panel")--}}
-{{--                        @endauth--}}
+                        @auth
+                            @include("panel.menu-panel")
+                        @endauth
                    </div>
 
                     <div class="card-body">
@@ -59,6 +59,9 @@
                                              <img src="{{asset('assets/users/'.$user->image)}}" class="rounded" width="70" alt="">
                                              <p style="margin: 20px;font-weight: bold">{{$user->name}} - {{$user->username}}</p>
                                          </div>
+                                            @auth
+                                                <a href="{{route('user.guess.groups',['username'=>$user->username])}}" style="font-weight: bold;margin-left: 10px"> My Groups</a>
+                                            @endauth
                                         </div>
                                     </a>
                                 </div>
@@ -67,22 +70,17 @@
                             <br>
                             @auth
                                 <div class="box_messages">
-{{--                                    <div class="messages">--}}
-{{--                                        <ul style="list-style: none;text-align: right;padding: 10px">--}}
-{{--                                            @foreach($finals as $final)--}}
-{{--                                            <li>{{$final->text}} - <span style="font-weight: bold">{{$final->user->name}}</span></li>--}}
-{{--                                            @endforeach--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
-                                    <div class="form_sender">
-                                        <form action="{{route('user.send.message',['user'=>$user->id])}}" method="post">
-                                            @csrf
-                                            <div class="form-group messages_sender_user_box">
-                                                <input type="text"  id="messages_sender_user" name="text" placeholder="Type something ...">
-                                                <button type="submit" class="btn btn-warning btn-sm">Send</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                   @if(auth()->user()->id !== $user->id)
+                                        <div class="form_sender">
+                                            <form action="{{route('user.send.message',['user'=>$user->id])}}" method="post">
+                                                @csrf
+                                                <div class="form-group messages_sender_user_box">
+                                                    <input type="text"  id="messages_sender_user" name="text" placeholder="Type something ...">
+                                                    <button type="submit" class="btn btn-warning btn-sm">Send</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
                                 </div>
                             @endauth
                         </div>

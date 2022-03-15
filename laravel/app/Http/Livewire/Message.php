@@ -20,9 +20,8 @@ class Message extends Component
             return;
         }
 
-        $message = \App\Models\Message::create([
-            "text" => $this->text,
-            "user_id" =>\auth()->user()->id
+        $message = \auth()->user()->texts()->create([
+           "text" => $this->text
         ]);
 
         $message->users()->attach($this->user->id);

@@ -12,10 +12,6 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        $users = [];
-        if ($request->has("search") && !empty($request->get("search"))){
-           $users =  $this->search($request->search);
-        }
-        return view("welcome",compact("users"));
+        return view("welcome");
     }
 }
