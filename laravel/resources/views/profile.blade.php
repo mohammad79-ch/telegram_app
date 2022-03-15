@@ -70,22 +70,17 @@
                             <br>
                             @auth
                                 <div class="box_messages">
-{{--                                    <div class="messages">--}}
-{{--                                        <ul style="list-style: none;text-align: right;padding: 10px">--}}
-{{--                                            @foreach($finals as $final)--}}
-{{--                                            <li>{{$final->text}} - <span style="font-weight: bold">{{$final->user->name}}</span></li>--}}
-{{--                                            @endforeach--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
-                                    <div class="form_sender">
-                                        <form action="{{route('user.send.message',['user'=>$user->id])}}" method="post">
-                                            @csrf
-                                            <div class="form-group messages_sender_user_box">
-                                                <input type="text"  id="messages_sender_user" name="text" placeholder="Type something ...">
-                                                <button type="submit" class="btn btn-warning btn-sm">Send</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                   @if(auth()->user()->id !== $user->id)
+                                        <div class="form_sender">
+                                            <form action="{{route('user.send.message',['user'=>$user->id])}}" method="post">
+                                                @csrf
+                                                <div class="form-group messages_sender_user_box">
+                                                    <input type="text"  id="messages_sender_user" name="text" placeholder="Type something ...">
+                                                    <button type="submit" class="btn btn-warning btn-sm">Send</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
                                 </div>
                             @endauth
                         </div>

@@ -1,6 +1,15 @@
 <div>
-    <div class="box_messages" wire:poll.750ms>
+    <div class="box_messages" wire:poll.1000ms>
         <div class="messages">
+        <div class="d-flex p-4">
+            <div><p style="font-weight: bold"><img src="{{asset('assets/groups/'.$group->profile)}}" width="60" alt=""></p></div>
+            <div>
+                <p style="font-weight: bold;margin: 5px">Group Name : {{$group->name}}</p>
+                <p style="font-weight: bold;margin: 5px"> Created At : {{$group->created_at->diffForHumans()}}</p>
+                <p style="font-weight: bold;margin: 5px"> Member : {{$group->users()->count() + 1}}</p>
+                <p style="font-weight: bold;margin: 5px"> Owner : {{$group->user->name}} </p>
+            </div>
+        </div>
             <ul style="list-style: none;text-align: right;padding: 10px">
                 @foreach($messages as $message)
                     @php
@@ -16,7 +25,7 @@
                 @endforeach
             </ul>
         </div>
-        @if(auth()->user()->ownGroups()->wherePivot("group_id",$group->id)->first())
+        @if(auth()->user()->ownGroups()->wherePivot("group_id",$group->id)->first() || auth()->user()->groups()->where("id",$group->id)->first())
             <div class="form_sender">
                 <form wire:submit.prevent="chat" method="post">
                     @csrf

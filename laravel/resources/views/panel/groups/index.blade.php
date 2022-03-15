@@ -31,7 +31,7 @@
                                 <div class="groups d-flex">
                                     <img src="{{asset('assets/groups/'.$group->profile)}}" width="40" alt="">
                                     <a href="{{route('user.groups.show',['group'=>$group->id])}}" style="font-weight: bold;margin: 10px" >{{$group->name}}</a>
-                                    <a  class="groups_count">{{$group->users()->count()}}</a>
+                                    <a  class="groups_count">{{$group->users()->count() + 1}}</a>
 
                                 </div>
                             <hr>

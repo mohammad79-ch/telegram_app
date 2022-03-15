@@ -34,7 +34,7 @@ class GroupController extends Controller
         $validData = $request->validate([
            "name" => "required|min:2",
            "unique_id" => "sometimes|required",
-           "desc" => "sometimes|required",
+           "desc" => "sometimes",
            "chat_history" => "required",
            "profile" => "required|image",
           ]);
