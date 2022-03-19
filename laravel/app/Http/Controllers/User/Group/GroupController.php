@@ -70,11 +70,13 @@ class GroupController extends Controller
 
     public function edit(Group $group): Factory|View|Application
     {
+        $this->authorize("update",$group);
        return view("panel.groups.edit",compact("group"));
     }
 
     public function update(Request $request, Group $group)
     {
+        $this->authorize("update",$group);
         $validData = $request->validate([
             "name" => "required|min:2",
             "unique_id" => "sometimes|required",

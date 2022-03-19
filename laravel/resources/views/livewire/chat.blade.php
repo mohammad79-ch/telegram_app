@@ -4,7 +4,9 @@
         <div class="d-flex p-4">
             <div><p style="font-weight: bold"><img src="{{asset('assets/groups/'.$group->profile)}}" width="60" alt=""></p></div>
             <div>
-                <a href="{{route('user.groups.edit',['group'=>$group->id])}}" class="btn btn-primary btn-sm">Edit</a>
+                @can("update",$group)
+                    <a href="{{route('user.groups.edit',['group'=>$group->id])}}" class="btn btn-primary btn-sm">Edit</a>
+                @endif
                 <p style="font-weight: bold;margin: 5px">Group Name : {{$group->name}}</p>
                 <p style="font-weight: bold;margin: 5px"> Created At : {{$group->created_at->diffForHumans()}}</p>
                 <p style="font-weight: bold;margin: 5px"> Member : {{$group->users()->count() + 1}}</p>
