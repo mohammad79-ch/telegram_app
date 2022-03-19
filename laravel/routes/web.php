@@ -40,7 +40,8 @@ Route::get("/user/show/single/message/{user}",[UserController::class,"singleMess
 Route::get("user/group/index",[GroupController::class,"index"])->name("user.group.index");
 Route::get("/user/@{username}/groups",[UserController::class,"groups"])->name("user.guess.groups");
 Route::get("/user/groups/{group}/show",[GroupController::class,"showCurrentGroup"])->name("user.groups.show");
-
+Route::get("/user/groups/{group}/edit",[GroupController::class,"edit"])->name("user.groups.edit");
+Route::put("/user/groups/{group}/update",[GroupController::class,"update"])->name("user.group.update");
 
 
 

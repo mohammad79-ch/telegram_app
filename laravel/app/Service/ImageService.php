@@ -32,4 +32,15 @@ class ImageService
 
         return TRUE;
     }
+
+    public function removeIfImageAlreadyExists($directory,$fileName)
+    {
+        if (File::exists(public_path("assets/$directory/".$fileName))){
+            File::delete(public_path("assets/$directory/".$fileName));
+        }
+
+        return TRUE;
+    }
+
+
 }
