@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
 use App\Service\ImageService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -63,6 +66,35 @@ class GroupController extends Controller
         $messages = $group->messages;
 
         return view("panel.groups.chat",compact("messages","group"));
+    }
+
+    public function edit(Group $group): Factory|View|Application
+    {
+        $this->authorize("update",$group);
+       return view("panel.groups.edit",compact("group"));
+    }
+
+    public function update(Request $request, Group $group)
+    {
+        $this->authorize("update",$group);
+        $validData = $request->validate([
+            "name" => "required|min:2",
+            "unique_id" => "sometimes|required",
+            "desc" => "sometimes",
+            "chat_history" => "required",
+        ]);
+
+        if ($request->has("profile")){
+            $this->imageService->removeIfImageAlreadyExists("groups",$request->get("profile"));
+            $profileRandomName = $this->imageService->Make($request,"profile","groups");
+            $validData["profile"] = $profileRandomName;
+        }else{
+            $validData["profile"] = $group->profile;
+        }
+
+        $group->update($validData);
+
+        return to_route("user.groups.show",["group"=>$group->id]);
     }
 
 }
