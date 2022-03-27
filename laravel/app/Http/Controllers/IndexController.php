@@ -12,6 +12,7 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
+//        auth()->loginUsingId(User::where("username","ciporizoma")->first()->id);
         return view("welcome");
     }
 }

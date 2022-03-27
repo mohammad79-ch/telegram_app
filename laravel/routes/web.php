@@ -42,8 +42,7 @@ Route::get("/user/@{username}/groups",[UserController::class,"groups"])->name("u
 Route::get("/user/groups/{group}/show",[GroupController::class,"showCurrentGroup"])->name("user.groups.show");
 Route::get("/user/groups/{group}/edit",[GroupController::class,"edit"])->name("user.groups.edit");
 Route::put("/user/groups/{group}/update",[GroupController::class,"update"])->name("user.group.update");
-
-
+Route::get("/user/groups/{group}/members",[GroupController::class,"members"])->name("user.groups.members");
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

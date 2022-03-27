@@ -97,4 +97,9 @@ class GroupController extends Controller
         return to_route("user.groups.show",["group"=>$group->id]);
     }
 
+    public function members(Group $group)
+    {
+        return \view("panel.groups.members",compact("group"));
+    }
+
 }
