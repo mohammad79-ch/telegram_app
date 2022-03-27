@@ -7,6 +7,7 @@
                 @can("update",$group)
                     <a href="{{route('user.groups.edit',['group'=>$group->id])}}" class="btn btn-primary btn-sm">Edit</a>
                 @endif
+                <a href="{{route('user.groups.members',['group'=>$group->id])}}" class="btn btn-primary btn-sm">Members</a>
                 <p style="font-weight: bold;margin: 5px">Group Name : {{$group->name}}</p>
                 <p style="font-weight: bold;margin: 5px"> Created At : {{$group->created_at->diffForHumans()}}</p>
                 <p style="font-weight: bold;margin: 5px"> Member : {{$group->users()->count() + 1}}</p>
