@@ -22,6 +22,6 @@ class GroupPolicy
 
     public function update(User $user,Group $group)
     {
-        return $user->id == $group->user_id;
+        return $user->id == $group->user_id || !!$group->users()->where(["is_admin"=>TRUE,"user_id"=>$user->id])->first();
     }
 }
