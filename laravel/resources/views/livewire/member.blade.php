@@ -18,7 +18,7 @@
                    style="font-weight: bold;margin: 10px">{{$member->name}} - {{$member->username}}
 
                     @if(!$checkAdmin)
-                        <span style="font-size: 20px;color: #399a19">&#9734</span>
+                            <span wire:click.prevent="unSetAdmin('{{$member->id}}')" style="font-size: 20px;color: #399a19">&#9734</span>
                     @endif
                     @if(auth()->user()->id == $group->user_id && $checkAdmin)
                         <a href="" wire:click.prevent="setNewAdmin({{$member->id}})" style="font-size: 20px">&#9813;</a>
